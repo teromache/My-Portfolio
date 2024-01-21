@@ -389,7 +389,7 @@
                         </div>
                     </div>
                     <div class="right-contact">
-                        <form action="php/sendEmail.php" class="contact-form" method="POST">
+                        <form id="emailForm" action="php/sendEmail.php" class="contact-form" method="POST">
                             <div class="input-control i-c-2">
                                 <input type="text" name="sender_name" required placeholder="YOUR NAME">
                                 <input type="email" name="sender_email" required placeholder="YOUR EMAIL">
@@ -398,13 +398,13 @@
                                 <input type="text" name="subject" required placeholder="ENTER SUBJECT">
                             </div>
                             <div class="input-control">
-                                <textarea name="message" id="" cols="15" rows="8" placeholder="Message Here..."></textarea>
+                                <textarea name="message" id="" cols="15" rows="8" required placeholder="Message Here..."></textarea>
                             </div>
                             <div class="submit-btn">
-                                <div class="main-btn">
-                                    <button class="btn-text" type="submit">Submit</button>
+                                <a href="javascript:void(0);" class="main-btn" onclick="confirmAndSubmit()">
+                                    <span class="btn-text">Submit</span>
                                     <span class="btn-icon"><i class="fa fa-paper-plane"></i></span>
-                                </div>
+                                </a>
                             </div>
                         </form>
                     </div>
@@ -450,10 +450,131 @@
             }
         });
     </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             AOS.init();
         });
+    </script>
+
+    <!-- <script>
+        function submitForm() {
+            // Get the form element
+            var form = document.getElementById("emailForm");
+
+            if (form.checkValidity()) {
+                // Submit the form if validation passes
+                form.submit();
+            } else {
+                // If validation fails, trigger browser's native form validation messages
+                form.reportValidity();
+            }
+        }
+    </script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Function to show SweetAlert success message
+        function showSuccessAlert() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Email Sent Successfully',
+                text: 'Thank you for reaching out!',
+            });
+        }
+
+        // Function to show SweetAlert error message
+        function showErrorAlert(errorMessage) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: errorMessage,
+            });
+        }
+
+        function showLoadingAlert() {
+            var form = document.getElementById("emailForm");
+
+            // Check if all required fields are filled out
+            if (form.checkValidity()) {
+                Swal.fire({
+                    title: 'Sending Email...',
+                    allowOutsideClick: false,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    },
+                    willClose: () => {
+                        // Re-enable the form when the loading spinner alert is closed
+                        form.disabled = false;
+                    },
+                });
+
+                // Disable the form to prevent user input during loading
+                form.disabled = true;
+            } else {
+                // If validation fails, trigger browser's native form validation messages
+                form.reportValidity();
+            }
+        }
+
+        function confirmAndSubmit() {
+            Swal.fire({
+                title: 'Confirm Submission',
+                text: 'Are you sure you want to send the message?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, proceed',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Disable the form to prevent user input during loading
+                    document.getElementById("emailForm").disabled = true;
+
+                    showLoadingAlert();
+
+                    // Add a short delay before submitting the form
+                    setTimeout(submitForm, 300);
+                }
+            });
+        }
+
+        // Function to submit the form and handle the response
+        function submitForm() {
+            var form = document.getElementById("emailForm");
+
+            // Check if all required fields are filled out
+            if (form.checkValidity()) {
+                // Use fetch API to send a POST request to your PHP script
+                fetch('php/sendEmail.php', {
+                        method: 'POST',
+                        body: new FormData(form),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        Swal.close();
+                        if (data.status === 'success') {
+                            showSuccessAlert();
+                        } else {
+                            showErrorAlert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showErrorAlert('Failed to send email. Please try again.');
+                    })
+                    .finally(() => {
+                        // Re-enable the form regardless of the response
+                        form.disabled = false;
+                    });
+            } else {
+                // If validation fails, trigger browser's native form validation messages
+                form.reportValidity();
+                // Re-enable the form to allow the user to correct input
+                form.disabled = false;
+            }
+        }
     </script>
 
 </body>

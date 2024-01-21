@@ -35,9 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             . $message;
 
         $mail->send();
-        echo 'Email sent successfully.';
+        echo json_encode(array('status' => 'success'));
     } catch (Exception $e) {
-        echo "Failed to send email. Error: {$mail->ErrorInfo}";
+        echo json_encode(array('status' => 'error', 'message' => "Failed to send email. Error: {$mail->ErrorInfo}"));
     }
 }
 ?>
