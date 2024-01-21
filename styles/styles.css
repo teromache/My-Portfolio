@@ -6,16 +6,16 @@
 }
 
 :root {
-  --color-primary: #191d2b;
-  --color-secondary: #27AE60;
-  --color-white: #FFFFFF;
+  --color-primary: #FFFFFF;
+  --color-secondary: #F56692;
+  --color-white: #454e56;
   --color-black: #000;
   --color-grey0: #f8f8f8;
-  --color-grey-1: #dbe1e8;
-  --color-grey-2: #b2becd;
+  --color-grey-1: #6c7983;
+  --color-grey-2: #6c7983;
   --color-grey-3: #6c7983;
   --color-grey-4: #454e56;
-  --color-grey-5: #2a2e35;
+  --color-grey-5: #f8f8f8;
   --color-grey-6: #12181b;
   --br-sm-2: 14px;
   --box-shadow-1: 0 3px 15px rgba(0,0,0,.3);
@@ -85,6 +85,13 @@ section {
   100% {
     transform: translateY(0) scaleY(1);
   }
+}
+
+/* Style to add a line under the text */
+.underline-text {
+    border-bottom: 1px solid #000; /* You can adjust the color and thickness */
+    display: inline;
+    padding-bottom: 2px; /* Optional: Adjust the space between text and line */
 }
 
 .controls {
@@ -310,23 +317,25 @@ section {
   width: 60%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .html {
-  width: 80%;
+  width: 90%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .css {
-  width: 95%;
-}
-.about-stats .progress-bars .progress-bar .progress-con .progress .js {
-  width: 75%;
-}
-.about-stats .progress-bars .progress-bar .progress-con .progress .react {
   width: 60%;
 }
-.about-stats .progress-bars .progress-bar .progress-con .progress .node {
-  width: 87%;
+.about-stats .progress-bars .progress-bar .progress-con .progress .js {
+  width: 65%;
 }
-.about-stats .progress-bars .progress-bar .progress-con .progress .python {
-  width: 70%;
+.about-stats .progress-bars .progress-bar .progress-con .progress .php {
+  width: 75%;
 }
+.about-stats .progress-bars .progress-bar .progress-con .progress .laravel {
+  width: 75%;
+}
+.about-stats .progress-bars .progress-bar .progress-con .progress .bootstrap {
+  width: 60%;
+}
+
+
 
 .stat-title {
   text-transform: uppercase;
@@ -395,6 +404,11 @@ section {
 }
 .timeline .timeline-item p {
   color: var(--color-grey-2);
+}
+
+ul {
+  list-style-type: circle; /* Change the bullet style (e.g., disc, square, etc.) */
+  /* Additional styling can be added here */
 }
 
 .port-text {
@@ -623,6 +637,11 @@ section {
 .btn-con {
   display: flex;
   align-self: flex-start;
+}
+
+.btn-con-2 {
+  display: flex;
+  align-self: center;
 }
 
 .main-btn {
